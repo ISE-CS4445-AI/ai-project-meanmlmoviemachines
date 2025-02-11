@@ -31,7 +31,7 @@ movie_ids = movies_df["movieId"].tolist()
 
 # Pydantic model for the request body
 class RecommendationRequest(BaseModel):
-    movie_index: int
+    watched_movie_indices: list[int]
     top_k: int = 10
 
 # Handle OPTIONS request for preflight checks
@@ -39,15 +39,31 @@ class RecommendationRequest(BaseModel):
 async def options_recommend():
     return {"message": "CORS preflight response"}
 
+
+# Health check endpoint
+@app.get("/health")
+async def health_check():
+    return {"status": "ok"}
+
+
 # POST request to fetch movie recommendations
+
 @app.post("/recommend")
 async def recommend(request: RecommendationRequest):
-    movie_index = request.movie_index
-    movie_lens_id = tmb_to_lens.get(movie_index)
+    watched_movie_indices = request.watched_movie_indices
     top_k = request.top_k
 
-    movie_vec = movie_factors[movie_lens_id].reshape(1, -1)
-    distances, indices = index.search(movie_vec, top_k)
+    # Filter out movies that are not in the database or out of bounds
+    valid_indices = [idx for idx in watched_movie_indices if idx in tmb_to_lens and tmb_to_lens[idx] < len(movie_factors)]
+
+    if not valid_indices:
+        return {"message": "No recommendations found"}
+
+    # Aggregate the vectors of watched movies
+    watched_movie_vecs = np.array([movie_factors[tmb_to_lens[idx]] for idx in valid_indices])
+    user_profile = np.mean(watched_movie_vecs, axis=0).reshape(1, -1)
+
+    distances, indices = index.search(user_profile, top_k)
     recommended_indices = indices.tolist()[0]
 
     recommended_tmdb_ids = []
@@ -58,5 +74,8 @@ async def recommend(request: RecommendationRequest):
             recommended_tmdb_ids.append(tmdb_id)
         else:
             recommended_tmdb_ids.append(ml_id)
+
+    if not recommended_tmdb_ids:
+        return {"message": "No recommendations found"}
 
     return {"recommended_movie_ids": recommended_tmdb_ids}
