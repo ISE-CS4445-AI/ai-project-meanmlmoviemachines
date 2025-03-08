@@ -173,3 +173,6 @@ cython_debug/
 # Misc
 *.pdf
 *.docx
+
+# keras.tuner's results folder from HP search
+Content-Filtering/results
