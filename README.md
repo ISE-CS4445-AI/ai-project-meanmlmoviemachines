@@ -7,9 +7,28 @@ Repository containing files and source code for the CS4445 AI module's final cap
 **Team members:**
 - Nandakishore Vinayakrishnan - 23070854
 - Tiernan Scully - 23365528
-- Daniel Moody - <Student_ID>
+- Daniel Moody - 23370157
 
-## Installation/Pre-requisites
-- Mention any libraries or installation requirements to demo your project if necessary.
-- If it is a Jupyter Notebook, ensure all code cells are run and outputs are displayed. The code cells will not be run again when project is being evaluated.
-  - You can delete this section from the README if this is the case.
+## Setting up the virtual environment
+
+1. Create a virtual environment:
+    ```
+    python -m venv .venv
+    ```
+
+2. Activate the virtual environment:
+    - On Windows:
+        ```
+        .\venv\Scripts\activate
+        ```
+    - On macOS and Linux:
+        ```
+        source venv/bin/activate
+        ```
+
+3. Install the required dependencies:
+    ```
+    pip install -r requirements.txt
+    ```
+
+4. Run your preferred notebook
