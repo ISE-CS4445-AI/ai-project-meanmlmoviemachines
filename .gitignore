@@ -174,5 +174,5 @@ cython_debug/
 *.pdf
 *.docx
 
-# keras.tuner's results folder from HP search
-Content-Filtering/results
+# keras.tuner's results folder from HP search for Content-based filtering
+results/
