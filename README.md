@@ -6,8 +6,8 @@ Repository containing files and source code for the CS4445 AI module's final cap
   
 **Team members:**
 - Nandakishore Vinayakrishnan - 23070854
+- Tiernan Scully - 23365528
 - Daniel Moody - <Student_ID>
-- Tiernan Scully - <Student_ID>
 
 ## Installation/Pre-requisites
 - Mention any libraries or installation requirements to demo your project if necessary.
