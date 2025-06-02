@@ -5,9 +5,9 @@ Repository containing files and source code for the CS4445 AI module's final cap
 **Group name:** ML Movie Madness
   
 **Team members:**
-- Nandakishore Vinayakrishnan - 23070854
-- Tiernan Scully - 23365528
-- Daniel Moody - 23370157
+- Nandakishore Vinayakrishnan 
+- Tiernan Scully 
+- Daniel Moody 
 
 ## Setting up the virtual environment
 
